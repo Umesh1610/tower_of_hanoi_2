@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     const backgroundMusic = document.getElementById('backgroundMusic');
 
-    // Try to play the music automatically when the page loads
+    // Try playing music on page load
     backgroundMusic.volume = 0.2;
     const playPromise = backgroundMusic.play();
 
     if (playPromise !== undefined) {
         playPromise.catch(() => {
-            // Autoplay blocked - Play on first user interaction
+            // Autoplay blocked - Play on first user click anywhere
             console.log("Autoplay blocked. Waiting for user interaction...");
             document.body.addEventListener('click', function playOnInteraction() {
                 backgroundMusic.play();
@@ -31,7 +31,6 @@ function startGame() {
     // Ensure background music plays if autoplay was blocked
     const backgroundMusic = document.getElementById('backgroundMusic');
     if (backgroundMusic.paused) {
-        backgroundMusic.volume = 0.2;
         backgroundMusic.play();
     }
 }
