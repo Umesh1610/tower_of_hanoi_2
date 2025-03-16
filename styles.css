@@ -1,0 +1,111 @@
+/* Universal settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    background: url('./background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-color: #000000;
+    color: #ffffff;
+    overflow: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Dark overlay for contrast */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+}
+
+/* Starfield canvas */
+#starfield {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* Title */
+h1 {
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    margin: 20px 0;
+}
+
+/* Inputs and buttons */
+label, input, button {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    margin: 5px;
+}
+
+input {
+    background: #2a2a2a;
+    border: 1px solid #ffaa44;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+button {
+    background: linear-gradient(to bottom, #ffaa44, #ff7700);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-shadow: 0 0 8px #ffaa44;
+}
+
+button:hover {
+    background: #ff9900;
+}
+
+/* Game board */
+#game {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    position: relative;
+    height: 400px;
+    z-index: 2;
+}
+
+/* Pegs */
+.peg {
+    width: 8px;
+    height: 300px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(200, 200, 200, 0.4));
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* Discs */
+.disc {
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, #444, #222);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+}
