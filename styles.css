@@ -17,7 +17,7 @@ body {
     min-height: 100vh;
 }
 
-/* Dark overlay for contrast */
+/* Dark overlay for better contrast */
 body::before {
     content: '';
     position: absolute;
@@ -37,11 +37,13 @@ h1 {
     font-size: 2.5rem;
 }
 
-/* Inputs and buttons */
-label, input, button {
-    font-family: 'Orbitron', sans-serif;
-    color: #ffffff;
-    margin: 5px;
+/* Controls (Discs Input & Start Button) */
+#controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 input {
@@ -51,6 +53,8 @@ input {
     padding: 8px;
     border-radius: 5px;
     font-size: 1rem;
+    width: 60px;
+    text-align: center;
 }
 
 button {
@@ -61,27 +65,28 @@ button {
     cursor: pointer;
     text-shadow: 0 0 8px #ffaa44;
     font-size: 1rem;
+    transition: transform 0.2s;
 }
 
 button:hover {
     background: #ff9900;
+    transform: scale(1.05);
 }
 
-/* Game board */
+/* Game Container */
 #game {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
     margin-top: 30px;
-    position: relative;
-    height: 400px;
     width: 90%;
-    max-width: 1000px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
+    height: 400px;
 }
 
-/* Pegs container */
+/* Peg Container */
 .peg-container {
     display: flex;
     flex-direction: column;
