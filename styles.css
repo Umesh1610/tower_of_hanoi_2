@@ -25,25 +25,16 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.5);
     z-index: -1;
-}
-
-/* Starfield canvas */
-#starfield {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
 }
 
 /* Title */
 h1 {
     color: #ffffff;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-    margin: 20px 0;
+    margin-top: 20px;
+    font-size: 2.5rem;
 }
 
 /* Inputs and buttons */
@@ -57,17 +48,19 @@ input {
     background: #2a2a2a;
     border: 1px solid #ffaa44;
     color: #ffffff;
-    padding: 5px;
+    padding: 8px;
     border-radius: 5px;
+    font-size: 1rem;
 }
 
 button {
     background: linear-gradient(to bottom, #ffaa44, #ff7700);
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: 8px;
     cursor: pointer;
     text-shadow: 0 0 8px #ffaa44;
+    font-size: 1rem;
 }
 
 button:hover {
@@ -78,23 +71,49 @@ button:hover {
 #game {
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
+    align-items: flex-end;
+    margin-top: 30px;
     position: relative;
     height: 400px;
-    z-index: 2;
+    width: 90%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Pegs container */
+.peg-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+}
+
+/* Peg Labels */
+.peg-label {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
 }
 
 /* Pegs */
 .peg {
-    width: 8px;
+    width: 10px;
     height: 300px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(200, 200, 200, 0.4));
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(200, 200, 200, 0.6));
     border-radius: 5px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    position: relative;
+}
+
+/* Base */
+.base {
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    width: 90%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
 
@@ -108,4 +127,22 @@ button:hover {
     background: linear-gradient(to bottom, #444, #222);
     border: 2px solid rgba(255, 255, 255, 0.6);
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    button {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+    .peg {
+        height: 250px;
+        width: 8px;
+    }
+    .peg-label {
+        font-size: 1rem;
+    }
 }
