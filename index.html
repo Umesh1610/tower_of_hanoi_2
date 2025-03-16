@@ -8,23 +8,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Cosmic Background -->
+    <div id="cosmic-background"></div>
+    <canvas id="particle-canvas"></canvas>
 
-    <!-- Starfield Background -->
-    <canvas id="starfield"></canvas>
-
-    <!-- Black Hole Centerpiece -->
-    <div id="black-hole"></div>
-
-    <!-- Main Title -->
+    <!-- Title -->
     <h1>Tower of Hanoi</h1>
+    <h1>Interstellar Edition</h1>
 
-    <!-- Game Settings -->
-    <label for="discs">Number of Discs (3-8):</label>
-    <input type="number" id="discs" min="3" max="8" value="3">
-    <button onclick="startGame()">Start Game</button>
+    <!-- Game Controls -->
+    <div id="controls">
+        <label for="discs">Number of Discs (3-8):</label>
+        <input type="number" id="discs" min="3" max="8" value="3">
+        <button onclick="startGame()">Start Game</button>
+    </div>
 
-    <!-- Status Display -->
+    <!-- Status -->
     <div id="status">Click "Start Game" to begin!</div>
+
+    <!-- Step Counter -->
     <div id="step-counter">Steps: 0</div>
 
     <!-- Game Board -->
@@ -41,12 +43,15 @@
             <div class="peg-label">C</div>
             <div class="peg" id="peg3"></div>
         </div>
-        <div class="base"></div>
-        <div id="win-animation"></div>
     </div>
 
-    <!-- Background Music (Plays on Page Load) -->
+    <!-- Background Music -->
     <audio id="backgroundMusic" src="cornfield-chase.mp3" loop></audio>
+    <!-- Win Sound -->
+    <audio id="winSound" src="warp.m4a"></audio>
+
+    <!-- Win Animation -->
+    <div id="win-animation"></div>
 
     <script src="script.js"></script>
 </body>

@@ -8,63 +8,89 @@
 body {
     text-align: center;
     font-family: 'Orbitron', sans-serif;
-    background: url('./background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    background-color: #000000;
     color: #ffffff;
     overflow: hidden;
-    position: relative;
     min-height: 100vh;
+    position: relative;
 }
 
-/* Dark overlay for better contrast */
-body::before {
-    content: '';
-    position: absolute;
+/* Cosmic Background */
+#cosmic-background {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: url('./background.jpg') no-repeat center center;
+    background-size: cover;
+    z-index: -2;
+    transition: filter 0.3s ease;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 70%);
+    z-index: -1;
+}
+
+/* Particle Canvas */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
 }
 
 /* Title */
 h1 {
-    color: #ffffff;
+    font-size: clamp(1.5rem, 4vw, 3rem);
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-    margin-top: 20px;
-    font-size: 2.5rem;
+    margin: 5px 0;
 }
 
-/* Controls (Discs Input & Start Button) */
+h1:nth-child(2) {
+    font-size: clamp(1rem, 3vw, 2rem);
+}
+
+/* Controls */
 #controls {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-top: 15px;
+    margin: 10px auto;
+}
+
+label {
+    font-size: clamp(0.8rem, 2vw, 1rem);
 }
 
 input {
     background: #2a2a2a;
     border: 1px solid #ffaa44;
     color: #ffffff;
-    padding: 8px;
+    padding: 5px;
     border-radius: 5px;
-    font-size: 1rem;
-    width: 60px;
+    width: 40px;
     text-align: center;
+    font-size: clamp(0.8rem, 2vw, 1rem);
 }
 
 button {
     background: linear-gradient(to bottom, #ffaa44, #ff7700);
     border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    border-radius: 5px;
     cursor: pointer;
     text-shadow: 0 0 8px #ffaa44;
-    font-size: 1rem;
+    font-size: clamp(0.8rem, 2vw, 1rem);
     transition: transform 0.2s;
 }
 
@@ -73,81 +99,281 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Game Container */
+/* Status */
+#status {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    margin: 5px auto;
+    opacity: 0;
+    animation: fadeInOut 2s ease-in-out;
+}
+
+#status.win {
+    opacity: 1;
+    animation: none;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Step Counter */
+#step-counter {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    margin: 5px auto;
+}
+
+/* Game Board */
 #game {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    margin-top: 30px;
+    margin: 10px auto;
     width: 90%;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    height: 400px;
+    max-width: 1200px;
+    height: 50vh;
+    min-height: 300px;
+    position: relative;
 }
 
-/* Peg Container */
+/* Pegs (Beams of Light) */
 .peg-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30%;
+    width: 33.33%;
 }
 
-/* Peg Labels */
 .peg-label {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px #ffaa44, 0 0 20px #ffaa44;
 }
 
-/* Pegs */
 .peg {
     width: 10px;
-    height: 300px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(200, 200, 200, 0.6));
+    height: 100%;
+    min-height: 200px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
     border-radius: 5px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 170, 68, 0.3);
     position: relative;
+    z-index: 1;
+    animation: beamPulse 2s ease-in-out infinite;
+    transition: all 0.3s ease;
 }
 
-/* Base */
-.base {
-    position: absolute;
-    bottom: 0;
-    left: 5%;
-    width: 90%;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 6px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+.peg:hover {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 170, 68, 0.5);
 }
 
-/* Discs */
+.peg.selected {
+    background: linear-gradient(to bottom, rgba(255, 170, 68, 0.3), rgba(255, 170, 68, 0.9), rgba(255, 170, 68, 0.3));
+    box-shadow: 0 0 35px #ffaa44;
+}
+
+@keyframes beamPulse {
+    0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 170, 68, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 170, 68, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 170, 68, 0.3); }
+}
+
+/* Discs (Milky Way Style) */
 .disc {
-    width: 40px;
-    height: 20px;
     position: absolute;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #aaccff, #3366cc, #000033);
+    border-radius: 50% 50% 10% 10%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.6),
+        inset 0 0 5px rgba(255, 255, 255, 0.3),
+        5px 5px 15px rgba(0, 0, 0, 0.3);
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(to bottom, #444, #222);
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    z-index: 2;
+    background-image: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.2) 1px,
+        transparent 1px
+    );
+    background-size: 5px 5px;
 }
 
-/* Responsive Fixes */
+.disc:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.8),
+        inset 0 0 5px rgba(255, 255, 255, 0.3),
+        5px 5px 15px rgba(0, 0, 0, 0.3);
+    animation: pulseGlow 1s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.3); }
+    50% { box-shadow: 0 0 25px rgba(255, 255, 255, 1), inset 0 0 8px rgba(255, 255, 255, 0.5); }
+    100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.3); }
+}
+
+.disc.selected-disc {
+    border-color: #ffffff;
+    box-shadow: 
+        0 0 20px #ffffff,
+        inset 0 0 10px rgba(255, 255, 255, 0.5),
+        5px 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateX(-50%) scale(1.1);
+}
+
+.disc.bounce {
+    animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+.disc.trail::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 170, 68, 0.5), rgba(255, 170, 68, 0));
+    left: -100%;
+    top: 0;
+    animation: trail 0.4s ease-out;
+}
+
+@keyframes trail {
+    0% { left: -100%; opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+}
+
+.disc.pullEffect {
+    animation: pullIntoWormhole 5s ease-in forwards;
+    position: fixed; /* Allow movement into wormhole container */
+    z-index: 11; /* Above wormhole */
+}
+
+@keyframes pullIntoWormhole {
+    0% {
+        left: var(--start-x);
+        top: var(--start-y);
+        transform: scale(1);
+        opacity: 1;
+    }
+    60% {
+        left: 50%;
+        top: 50%;
+        transform: scale(1) rotate(180deg);
+        opacity: 1;
+    }
+    100% {
+        left: 50%;
+        top: 50%;
+        transform: scale(0.1) rotate(360deg);
+        opacity: 0.3;
+        background: radial-gradient(circle, rgba(255, 170, 68, 0.8), transparent);
+    }
+}
+
+/* Enhanced Win Animation (Realistic Wormhole) */
+.wormhole {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(
+        circle at center,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.9) 20%,
+        rgba(255, 170, 68, 0.6) 40%,
+        transparent 70%
+    ); /* Event horizon and accretion disc */
+    border: 2px solid #ffaa44;
+    border-radius: 50%;
+    box-shadow: 0 0 30px #ffaa44, 0 0 50px rgba(255, 170, 68, 0.5), inset 0 0 20px #ffaa44;
+    z-index: 10;
+    animation: wormholeExpand 10s ease-out forwards, lensingEffect 2s ease-in-out infinite;
+}
+
+.wormhole::before, .wormhole::after {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: swirl 5s linear infinite;
+    z-index: 9;
+}
+
+.wormhole::after {
+    animation-direction: reverse;
+    opacity: 0.5;
+}
+
+@keyframes wormholeExpand {
+    0% {
+        width: 50px;
+        height: 50px;
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        width: 300px;
+        height: 300px;
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 1;
+    }
+    100% {
+        width: 400px;
+        height: 400px;
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0.7;
+    }
+}
+
+@keyframes lensingEffect {
+    0% { border-radius: 50% 60% 50% 60%; }
+    50% { border-radius: 60% 50% 60% 50%; }
+    100% { border-radius: 50% 60% 50% 60%; }
+}
+
+@keyframes swirl {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Background Gravitational Lensing */
+body:hover #cosmic-background {
+    filter: blur(2px) hue-rotate(10deg);
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2rem;
+    #game {
+        flex-direction: column;
+        align-items: center;
+        height: 60vh;
+        padding: 10px 0;
     }
-    button {
-        font-size: 0.9rem;
-        padding: 10px 20px;
+
+    .peg-container {
+        margin: 10px 0;
+        width: 80%;
     }
+
     .peg {
-        height: 250px;
-        width: 8px;
+        height: 150px;
+        min-height: 150px;
     }
-    .peg-label {
-        font-size: 1rem;
+
+    .disc {
+        height: 16px;
     }
 }
