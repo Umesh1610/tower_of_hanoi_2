@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower of Hanoi - Interstellar Edition</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Starfield Background -->
+    <canvas id="starfield"></canvas>
+
+    <!-- Black Hole Centerpiece -->
+    <div id="black-hole"></div>
+
+    <!-- Main Title -->
+    <h1>Tower of Hanoi</h1>
+
+    <!-- Game Settings -->
+    <label for="discs">Number of Discs (3-8):</label>
+    <input type="number" id="discs" min="3" max="8" value="3">
+    <button onclick="startGame()">Start Game</button>
+
+    <!-- Status Display -->
+    <div id="status">Click "Start Game" to begin!</div>
+    <div id="step-counter">Steps: 0</div>
+
+    <!-- Game Board -->
+    <div id="game">
+        <div class="peg-container">
+            <div class="peg-label">A</div>
+            <div class="peg" id="peg1"></div>
+        </div>
+        <div class="peg-container">
+            <div class="peg-label">B</div>
+            <div class="peg" id="peg2"></div>
+        </div>
+        <div class="peg-container">
+            <div class="peg-label">C</div>
+            <div class="peg" id="peg3"></div>
+        </div>
+        <div class="base"></div>
+        <div id="win-animation"></div>
+    </div>
+
+    <!-- Background Music (Plays on Page Load) -->
+    <audio id="backgroundMusic" src="cornfield-chase.mp3" loop></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
